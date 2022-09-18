@@ -3,6 +3,9 @@ const { buildSchema } = require("graphql");
 const { graphqlHTTP } = require("express-graphql");
 const axios = require("axios");
 require('dotenv').config();
+const cors = require('cors')
+
+
 
 const schema = buildSchema(`
 
@@ -29,6 +32,7 @@ const root = {
 };
 
 const app = express();
+app.use(cors())
 app.use(
   "/graphql",
   graphqlHTTP({
