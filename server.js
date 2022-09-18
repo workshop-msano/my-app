@@ -1,11 +1,10 @@
 const express = require("express");
 const { buildSchema } = require("graphql");
 const { graphqlHTTP } = require("express-graphql");
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 const axios = require("axios");
 require('dotenv').config();
 const cors = require('cors')
-
-
 
 const schema = buildSchema(`
 
@@ -38,7 +37,11 @@ app.use(
     schema: schema,
     rootValue: root,
     graphiql: true,
-  })
+  }),
+  // createProxyMiddleware({
+  //   target: 'http://localhost:4000/graphql',
+  //   changeOrigin: true,
+  // }),
 );
 
 app.listen(4000, () => console.log("Server on port 4000"));
