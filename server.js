@@ -26,7 +26,6 @@ const root = {
     const movies = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.APIKEY}`
     );
-    // console.log("movies", movies.data.results);
     return movies.data.results;
   },
 };
