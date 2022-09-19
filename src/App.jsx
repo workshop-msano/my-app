@@ -1,8 +1,12 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import Modal from "./components/Modal";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedMovie, setSelectMovie] = useState("");
+
   useEffect(() => {
     getMovies();
   }, []);
@@ -27,23 +31,40 @@ function App() {
     setMovies(res.data.getPopularMovies);
   }
 
+  function switchModal() {
+    if (!showModal) {
+      setShowModal(true);
+    } else {
+      setShowModal(false);
+    }
+  }
+
   const displayMovies = movies.map((movie) => {
     const image = "http://image.tmdb.org/t/p/w154/" + movie.poster_path;
     return (
-      <li key={movie.id}>
-        <img src={image} alt="images of movies"></img>
-        {/* <p>{movie.title}</p>
-        <p>{movie.overview}</p> */}
-      </li>
+      <div key={movie.id}>
+        <img
+          src={image}
+          alt="movie"
+          onClick={() => {
+            console.log(`selected movie-id is ${movie.id}`);
+            switchModal();
+            setSelectMovie(movie);
+          }}
+        ></img>
+      </div>
     );
   });
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>Movies</p>
+        <p>Hello MOVIES!🍿🥤</p>
       </header>
       <ul>{displayMovies}</ul>
+      {showModal && (
+        <Modal switchModal={switchModal} selectedMovie={selectedMovie} />
+      )}
     </div>
   );
 }
