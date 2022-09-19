@@ -11,6 +11,8 @@ module.exports = function(app) {
 };
 
 /*
+graphqlの場合proxyの設定がpackage.jsonではできない
+
 //Configuring the Proxy Manually
 https://stackoverflow.com/questions/62236347/is-it-possible-to-proxy-the-html-get-request-to-graphql-from-a-create-react-app
 

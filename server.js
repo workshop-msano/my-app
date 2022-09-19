@@ -1,10 +1,17 @@
+/*
+Herokuの代替デプロイ先候補
+
+https://bel-itigo.com/migrate-from-heroku-to-flyio/
+*/
+
 const express = require("express");
 const { buildSchema } = require("graphql");
 const { graphqlHTTP } = require("express-graphql");
-// const { createProxyMiddleware } = require('http-proxy-middleware');
 const axios = require("axios");
 require('dotenv').config();
 const cors = require('cors')
+const path = require("path");
+
 
 const schema = buildSchema(`
 
@@ -38,10 +45,11 @@ app.use(
     rootValue: root,
     graphiql: true,
   }),
-  // createProxyMiddleware({
-  //   target: 'http://localhost:4000/graphql',
-  //   changeOrigin: true,
-  // }),
 );
 
-app.listen(4000, () => console.log("Server on port 4000"));
+app.use(express.static(path.resolve(__dirname, "/build")));
+//https://nodejs.dev/en/learn/the-nodejs-path-module/#pathresolve
+
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => console.log(`Server on port ${PORT}`));
