@@ -8,10 +8,9 @@ const express = require("express");
 const { buildSchema } = require("graphql");
 const { graphqlHTTP } = require("express-graphql");
 const axios = require("axios");
-require('dotenv').config();
-const cors = require('cors')
+require("dotenv").config();
+const cors = require("cors");
 const path = require("path");
-
 
 const schema = buildSchema(`
 
@@ -20,31 +19,40 @@ type Movie{
     title: String
     overview:String
     poster_path:String
-}
-
-type Query {
+  }
+  
+  type Query {
     getPopularMovies:[Movie]
-}
-`);
+    getLatestMovies:Movie
+  }
+  `);
 
 const root = {
   getPopularMovies: async () => {
-    const movies = await axios.get(
+    //Get a list of the current popular movies on TMDB. This list updates daily.
+    const popularMovies = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.APIKEY}`
     );
-    return movies.data.results;
+    return popularMovies.data.results;
+  },
+  getLatestMovies: async () => {
+    const latestMovies = await axios.get(
+      `https://api.themoviedb.org/3/movie/latest?api_key=${process.env.APIKEY}&language=en-US`
+    );
+    console.log("latest: ", latestMovies.data);
+    return latestMovies.data;
   },
 };
 
 const app = express();
-app.use(cors())
+app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({
     schema: schema,
     rootValue: root,
     graphiql: true,
-  }),
+  })
 );
 
 app.use(express.static(path.resolve(__dirname, "/build")));
