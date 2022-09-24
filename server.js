@@ -14,16 +14,21 @@ const path = require("path");
 
 const schema = buildSchema(`
 
-type Movie{
+  type Movie{
     id: Int
     title: String
     overview:String
     poster_path:String
+    release_date:String
+    popularity:Float
   }
+
   
   type Query {
     getPopularMovies:[Movie]
-    getLatestMovies:Movie
+    getLatestMovie:Movie
+    getTopRatedMovies:[Movie]
+    getUpcomingMovies:[Movie]
   }
   `);
 
@@ -35,12 +40,29 @@ const root = {
     );
     return popularMovies.data.results;
   },
-  getLatestMovies: async () => {
-    const latestMovies = await axios.get(
+  getLatestMovie: async () => {
+    //Get a single latest movie.
+    const latestMovie = await axios.get(
       `https://api.themoviedb.org/3/movie/latest?api_key=${process.env.APIKEY}&language=en-US`
     );
-    console.log("latest: ", latestMovies.data);
-    return latestMovies.data;
+    console.log("latest movie: ", latestMovie.data);
+    return latestMovie.data;
+  },
+  getTopRatedMovies: async () => {
+    //Get the top rated movies on TMDB.
+    const topRatedMovies = await axios.get(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.APIKEY}&language=en-US&page=1`
+    );
+    console.log("top rated movies: ", topRatedMovies.data.results);
+    return topRatedMovies.data.results;
+  },
+  getUpcomingMovies: async () => {
+    //Get a list of upcoming movies in theatres.
+    const upcomingMovies = await axios.get(
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.APIKEY}&language=en-US&page=1`
+    );
+    console.log("upcoming movies: ", upcomingMovies.data.results);
+    return upcomingMovies.data.results;
   },
 };
 
