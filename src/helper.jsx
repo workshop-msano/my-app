@@ -1,11 +1,10 @@
 const helper = {
-  
-getPopularMovies : async () => {
-  let res = await fetch("/graphql", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      query: `
+  popular: async () => {
+    let res = await fetch("/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: `
         query {
             getPopularMovies {
               id
@@ -14,10 +13,31 @@ getPopularMovies : async () => {
               poster_path
           }
         }`,
-    }),
-  });
-  res = await res.json(); 
-  return res.data.getPopularMovies; 
-}}
+      }),
+    });
+    res = await res.json();
+    return res.data.getPopularMovies;
+  },
+  top: async () => {
+    let res = await fetch("/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: `
+        query {
+            getTopRatedMovies {
+              id
+              title
+              overview
+              poster_path
+         }
+        }`,
+      }),
+    });
+    res = await res.json();
+    console.log("res", res);
+    return res.data.getTopRatedMovies;
+  },
+};
 
 export default helper;

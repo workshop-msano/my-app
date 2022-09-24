@@ -23,7 +23,6 @@ const schema = buildSchema(`
     popularity:Float
   }
 
-  
   type Query {
     getPopularMovies:[Movie]
     getLatestMovie:Movie

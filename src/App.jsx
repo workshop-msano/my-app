@@ -1,31 +1,49 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import Select from "react-select";
 import Modal from "./components/Modal";
-import helper from "./helper"
+import helper from "./helper";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectMovie] = useState("");
-  // const [selectType, setSelectType] = useState("");
-
+  const [options, setOptions] = useState("");
+  const [selectedType, setSelectedType] = useState("");
 
   useEffect(() => {
+    getOptions();
     getMovies();
   }, []);
 
-  // useEffect(() => {
-  //   setSelectType(document.getElementById("movie-select").value); 
-
-  // }, [])
-  //   console.log("selectType", selectType)
-
   async function getMovies() {
-    let res = ""; 
-    res = await helper.getPopularMovies(); 
+    let res = "";
+    console.log("selectedType", selectedType);
+    if (selectedType === "") {
+      res = await helper.popular();
+    } else {
+      res = await helper[selectedType]();
+
+    }
     setMovies(res);
+    // setTimeout(() => window.location.reload(), 5000)
   }
-  console.log("movies", movies)
+  // getMovies();
+
+  // setHasReload(false);
+  console.log("selectedType", selectedType);
+  console.log("movies", movies);
+
+  function getOptions() {
+    let ops = ["", "popular", "top", "upcoming"];
+    ops = ops.map((el) => {
+      return {
+        value: el,
+        label: el,
+      };
+    });
+    setOptions(ops);
+  }
 
   function switchModal() {
     if (!showModal) {
@@ -56,19 +74,27 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>
-        <h1>Movie time🍕🥤</h1>
+          <h1>Movie time🍕🥤</h1>
         </div>
         <div>
-        <label htmlFor="movie-select">Choose a selection</label>
-        <select name="movies" id="movie-select">
-          <option value="">Please choose an option</option>
-          <option defaultValue="popularMovies">popular movies</option>
-          <option value="latestMovie">latest movie</option>
-          <option value="topRatedMovies">top rated movies</option>
-          <option value="upcomingMovies">up coming movies</option>
-        </select>
+          <Select
+            options={options}
+            onChange={(e) => {
+              console.log("e", e);
+              setSelectedType(e.value);
+            }}
+          />
+          {/* <label htmlFor="movie-select">Choose a selection</label>
+          <select name="movies" id="movie-select">
+            <option value="">Please choose an option</option>
+            <option value="popularMovies" selected>
+              popular movies
+            </option>
+            <option value="latestMovie">latest movie</option>
+            <option value="topRatedMovies">top rated movies</option>
+            <option value="upcomingMovies">up coming movies</option>
+          </select> */}
         </div>
-
       </header>
       <ul>{displayMovies}</ul>
       {showModal && (
