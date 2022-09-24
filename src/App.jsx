@@ -1,44 +1,47 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Modal from "./components/Modal";
+import helper from "./helper"
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectMovie] = useState("");
-  const [selectType, setSelectType] = useState("");
+  // const [selectType, setSelectType] = useState("");
 
 
   useEffect(() => {
     getMovies();
   }, []);
 
-  useEffect(() => {
-    setSelectType(document.getElementById("movie-select")); 
+  // useEffect(() => {
+  //   setSelectType(document.getElementById("movie-select").value); 
 
-  }, [])
-    console.log("selectType", selectType.options)
-    // setSelectType(select.value)
+  // }, [])
+  //   console.log("selectType", selectType)
 
   async function getMovies() {
-    let res = await fetch("/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: `
-        query {
-            getPopularMovies {
-              id
-              title
-              overview
-              poster_path
-          }
-        }`,
-      }),
-    });
-    res = await res.json();
-    setMovies(res.data.getPopularMovies);
+    let res = ""; 
+  //   let res = await fetch("/graphql", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       query: `
+  //       query {
+  //           getPopularMovies {
+  //             id
+  //             title
+  //             overview
+  //             poster_path
+  //         }
+  //       }`,
+  //     }),
+  //   });
+  // res = await res.json();
+  res = await helper.getPopularMovies(); 
+    setMovies(res);
   }
+  console.log("movies", movies)
 
   function switchModal() {
     if (!showModal) {
@@ -72,10 +75,10 @@ function App() {
         <h1>Movie time🍕🥤</h1>
         </div>
         <div>
-        <label for="movie-select">Choose a selection</label>
+        <label htmlFor="movie-select">Choose a selection</label>
         <select name="movies" id="movie-select">
           <option value="">Please choose an option</option>
-          <option value="popularMovies">popular movies</option>
+          <option defaultValue="popularMovies">popular movies</option>
           <option value="latestMovie">latest movie</option>
           <option value="topRatedMovies">top rated movies</option>
           <option value="upcomingMovies">up coming movies</option>
