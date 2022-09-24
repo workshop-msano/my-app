@@ -6,10 +6,19 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectMovie] = useState("");
+  const [selectType, setSelectType] = useState("");
+
 
   useEffect(() => {
     getMovies();
   }, []);
+
+  useEffect(() => {
+    setSelectType(document.getElementById("movie-select")); 
+
+  }, [])
+    console.log("selectType", selectType.options)
+    // setSelectType(select.value)
 
   async function getMovies() {
     let res = await fetch("/graphql", {
@@ -59,7 +68,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Hello MOVIES!🍿🥤</p>
+        <div>
+        <h1>Movie time🍕🥤</h1>
+        </div>
+        <div>
+        <label for="movie-select">Choose a selection</label>
+        <select name="movies" id="movie-select">
+          <option value="">Please choose an option</option>
+          <option value="popularMovies">popular movies</option>
+          <option value="latestMovie">latest movie</option>
+          <option value="topRatedMovies">top rated movies</option>
+          <option value="upcomingMovies">up coming movies</option>
+        </select>
+        </div>
+
       </header>
       <ul>{displayMovies}</ul>
       {showModal && (
