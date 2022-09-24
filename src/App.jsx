@@ -22,23 +22,7 @@ function App() {
 
   async function getMovies() {
     let res = ""; 
-  //   let res = await fetch("/graphql", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       query: `
-  //       query {
-  //           getPopularMovies {
-  //             id
-  //             title
-  //             overview
-  //             poster_path
-  //         }
-  //       }`,
-  //     }),
-  //   });
-  // res = await res.json();
-  res = await helper.getPopularMovies(); 
+    res = await helper.getPopularMovies(); 
     setMovies(res);
   }
   console.log("movies", movies)

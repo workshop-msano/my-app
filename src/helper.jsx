@@ -1,6 +1,6 @@
-const helper = () => {
-
-async function getPopularMovies() {
+const helper = {
+  
+getPopularMovies : async () => {
   let res = await fetch("/graphql", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -20,4 +20,4 @@ async function getPopularMovies() {
   return res.data.getPopularMovies; 
 }}
 
-module.exports = helper();
+export default helper;
