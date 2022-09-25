@@ -27,7 +27,7 @@ function App() {
   }
 
   function getOptions() {
-    let ops = ["", "popular", "top", "upcoming"];
+    let ops = ["", "popular", "top", "upcoming", "latest"];
     ops = ops.map((el) => {
       return {
         value: el,
@@ -45,22 +45,57 @@ function App() {
     }
   }
 
-  const displayMovies = movies.map((movie) => {
-    const image = "http://image.tmdb.org/t/p/w154/" + movie.poster_path;
-    return (
-      <div key={movie.id}>
-        <img
-          src={image}
-          alt="movie"
-          onClick={() => {
-            console.log(`selected movie-id is ${movie.id}`);
-            switchModal();
-            setSelectMovie(movie);
-          }}
-        ></img>
-      </div>
-    );
-  });
+  // let displayMovies;
+  // if (!Array.isArray(movies)) {
+  //   console.log("not array");
+  // } else {
+    let displayMovies; 
+    if(Array.isArray(movies)){
+    displayMovies = movies.map((movie) => {
+      const image = "http://image.tmdb.org/t/p/w154/" + movie.poster_path;
+      return (
+        <div key={movie.id}>
+          <img
+            src={image}
+            alt="movie"
+            onClick={() => {
+              console.log(`selected movie-id is ${movie.id}`);
+              switchModal();
+              setSelectMovie(movie);
+            }}
+          ></img>
+        </div>
+      );
+    });
+  } else {
+    console.log("movies?", movies)
+    displayMovies = (() => {
+      return (
+        <div >
+          <h3>✨The most newly created movie...✨</h3>
+          <h1>{movies.title}</h1>
+          <p>{movies.overview}</p>
+        </div>
+      );
+  })(); 
+    // displayMovies = movies.map((movie) => {
+    //   const image = "http://image.tmdb.org/t/p/w154/" + movie.poster_path;
+    //   return (
+    //     <div key={movie.id}>
+    //       <img
+    //         src={image}
+    //         alt="movie"
+    //         onClick={() => {
+    //           console.log(`selected movie-id is ${movie.id}`);
+    //           switchModal();
+    //           setSelectMovie(movie);
+    //         }}
+    //       ></img>
+    //     </div>
+    //   );
+    // });
+
+  }
 
   return (
     <div className="App">
