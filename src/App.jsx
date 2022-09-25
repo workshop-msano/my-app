@@ -13,26 +13,18 @@ function App() {
 
   useEffect(() => {
     getOptions();
-    getMovies();
-  }, []);
+    getMovies(selectedType);
+  }, [selectedType]);
 
-  async function getMovies() {
+  async function getMovies(stype) {
     let res = "";
-    console.log("selectedType", selectedType);
-    if (selectedType === "") {
-      res = await helper.popular();
+    if (stype === "") {
+      console.log("type?");
     } else {
-      res = await helper[selectedType]();
-
+      res = await helper[stype]();
+      setMovies(res);
     }
-    setMovies(res);
-    // setTimeout(() => window.location.reload(), 5000)
   }
-  // getMovies();
-
-  // setHasReload(false);
-  console.log("selectedType", selectedType);
-  console.log("movies", movies);
 
   function getOptions() {
     let ops = ["", "popular", "top", "upcoming"];
@@ -80,20 +72,11 @@ function App() {
           <Select
             options={options}
             onChange={(e) => {
-              console.log("e", e);
+              console.log("e.value", e.value);
               setSelectedType(e.value);
+              getMovies(selectedType);
             }}
           />
-          {/* <label htmlFor="movie-select">Choose a selection</label>
-          <select name="movies" id="movie-select">
-            <option value="">Please choose an option</option>
-            <option value="popularMovies" selected>
-              popular movies
-            </option>
-            <option value="latestMovie">latest movie</option>
-            <option value="topRatedMovies">top rated movies</option>
-            <option value="upcomingMovies">up coming movies</option>
-          </select> */}
         </div>
       </header>
       <ul>{displayMovies}</ul>

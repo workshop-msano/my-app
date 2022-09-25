@@ -35,7 +35,6 @@ const helper = {
       }),
     });
     res = await res.json();
-    console.log("res", res);
     return res.data.getTopRatedMovies;
   },
 };
