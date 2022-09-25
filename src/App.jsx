@@ -45,12 +45,8 @@ function App() {
     }
   }
 
-  // let displayMovies;
-  // if (!Array.isArray(movies)) {
-  //   console.log("not array");
-  // } else {
-    let displayMovies; 
-    if(Array.isArray(movies)){
+  let displayMovies;
+  if (Array.isArray(movies)) {
     displayMovies = movies.map((movie) => {
       const image = "http://image.tmdb.org/t/p/w154/" + movie.poster_path;
       return (
@@ -68,40 +64,22 @@ function App() {
       );
     });
   } else {
-    console.log("movies?", movies)
     displayMovies = (() => {
       return (
-        <div >
+        <div>
           <h3>✨The most newly created movie...✨</h3>
           <h1>{movies.title}</h1>
           <p>{movies.overview}</p>
         </div>
       );
-  })(); 
-    // displayMovies = movies.map((movie) => {
-    //   const image = "http://image.tmdb.org/t/p/w154/" + movie.poster_path;
-    //   return (
-    //     <div key={movie.id}>
-    //       <img
-    //         src={image}
-    //         alt="movie"
-    //         onClick={() => {
-    //           console.log(`selected movie-id is ${movie.id}`);
-    //           switchModal();
-    //           setSelectMovie(movie);
-    //         }}
-    //       ></img>
-    //     </div>
-    //   );
-    // });
-
+    })();
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <div>
-          <h1>Movie time🍕🥤</h1>
+          <h1>Mmmovie!🍕🥤</h1>
         </div>
         <div>
           <Select
