@@ -108,4 +108,7 @@ https://chocolat5.com/tips/tmdb-api/
 
 映画情報を取得できるTMDb API　画像（poster_path）のサイズは、決まっていた！！
 https://qiita.com/kokogento/items/00ffed5c81cdd44cf85b
+
+React-select
+https://react-select.com/home
 */
