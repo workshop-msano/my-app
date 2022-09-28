@@ -96,6 +96,10 @@ function App() {
       {showModal && (
         <Modal switchModal={switchModal} selectedMovie={selectedMovie} />
       )}
+      <button onClick={async()=>{
+        let test = await helper.popular()
+        console.log("test data", test)
+      }}>btn</button>
     </div>
   );
 }

@@ -80,6 +80,7 @@ app.use(
 );
 
 app.use(express.static(path.resolve(__dirname, "/build")));
+
 //https://nodejs.dev/en/learn/the-nodejs-path-module/#pathresolve
 
 const PORT = process.env.PORT || 4000;
