@@ -15,7 +15,7 @@ require("dotenv").config();
 const cors = require("cors");
 const path = require("path");
 
-let isProduction = false; 
+// let isProduction = false; 
 
 const schema = buildSchema(`
 
