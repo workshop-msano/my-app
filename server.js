@@ -85,19 +85,7 @@ app.use(express.static(path.resolve(__dirname, "/build")));
 
 //https://nodejs.dev/en/learn/the-nodejs-path-module/#pathresolve
 
-console.log("process.env?: ", process.env)
-
 const PORT = process.env.PORT || 4000;
-// let PORT; 
-// if(process.env.PORT){
-//   PORT = process.env.PORT; 
-//   isProduction = true; 
-//   console.log("isProcution: ", isProduction); 
-// } else {
-//   console.log("isProcution: ", isProduction); 
-//   PORT = 4000; 
-// }
 
 app.listen(PORT, () => console.log(`Server on port ${PORT}`));
 
-// module.exports = isProduction; 

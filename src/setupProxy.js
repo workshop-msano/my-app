@@ -1,13 +1,20 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
-module.exports = function(app) {
-  app.use(
-    '/graphql',
-    createProxyMiddleware({
-      target: 'http://localhost:4000/graphql',
-      changeOrigin: true,
-    })
-  );
+module.exports = function (app) {
+  if (process.env.PORT !== "8080") {
+    console.log("process.env.PORT is not 8080: ", process.env.PORT);
+    console.log("type of process.env.PORT is: ", typeof process.env.PORT);
+
+    app.use(
+      "/graphql",
+      createProxyMiddleware({
+        target: "http://localhost:4000/graphql",
+        changeOrigin: true,
+      })
+    );
+  } else {
+    console.log("process.env.PORT is '8080': ", process.env.PORT);
+  }
 };
 
 /*

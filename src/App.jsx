@@ -98,6 +98,8 @@ function App() {
       )}
       <button onClick={async()=>{
         let test = await helper.popular()
+        console.log("helper", helper)
+
         console.log("test data", test)
       }}>btn</button>
     </div>
