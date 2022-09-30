@@ -7,6 +7,8 @@ https://qiita.com/00000000/items/237ee0fba66ca5a3f12e
 
 */
 
+console.log("foo");
+
 const express = require("express");
 const { buildSchema } = require("graphql");
 const { graphqlHTTP } = require("express-graphql");
@@ -70,6 +72,7 @@ const root = {
   },
 };
 
+console.log("bar");
 const app = express();
 app.use(cors());
 app.use(
@@ -86,6 +89,6 @@ app.use(express.static(path.resolve(__dirname, "/build")));
 //https://nodejs.dev/en/learn/the-nodejs-path-module/#pathresolve
 
 const PORT = process.env.PORT || 4000;
-
+console.log("process.env.PORT: ", process.env.PORT)
 app.listen(PORT, () => console.log(`Server on port ${PORT}`));
 

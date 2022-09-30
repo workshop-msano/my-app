@@ -2,9 +2,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   if (process.env.PORT !== "8080") {
-    console.log("process.env.PORT is not 8080: ", process.env.PORT);
-    console.log("type of process.env.PORT is: ", typeof process.env.PORT);
-
+    console.log("process.env.PORT is: ", process.env.PORT);
     app.use(
       "/graphql",
       createProxyMiddleware({
@@ -13,7 +11,15 @@ module.exports = function (app) {
       })
     );
   } else {
-    console.log("process.env.PORT is '8080': ", process.env.PORT);
+    console.log("process.env.PORT is '8080', right?: ", process.env.PORT);
+    app.use(
+      "/graphql",
+      createProxyMiddleware({
+        target: "https://mmmovie.fly.dev/graphql",
+        changeOrigin: true,
+      })
+    );
+
   }
 };
 
