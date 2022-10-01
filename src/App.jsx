@@ -93,16 +93,10 @@ function App() {
         </div>
       </header>
       <ul>{displayMovies}</ul>
+      {selectedType === "" && <h3>Select category🤪</h3>}
       {showModal && (
         <Modal switchModal={switchModal} selectedMovie={selectedMovie} />
       )}
-      {/* <button onClick={async()=>{
-        let test = await helper.popular()
-        console.log("helper", helper)
-
-        console.log("test data", test)
-      }}>btn</button> */}
-      <div></div>
     </div>
   );
 }
