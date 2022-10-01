@@ -43,6 +43,16 @@ function App() {
     }
   }
 
+  //styles for react-select
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: "1px dotted gray",
+      color: state.isSelected ? "white" : "gray",
+      padding: 20,
+    }),
+  };
+
   let displayMovies;
   if (Array.isArray(movies)) {
     displayMovies = movies.map((movie) => {
@@ -80,14 +90,17 @@ function App() {
           <h1>Mmmovie!🍕🥤</h1>
         </div>
         <div>
-          <Select
-            options={options}
-            onChange={(e) => {
-              console.log("e.value", e.value);
-              setSelectedType(e.value);
-              getMovies(selectedType);
-            }}
-          />
+          <div style={{ width: "150px", marginBottom: "10px" }}>
+            <Select
+              styles={customStyles}
+              options={options}
+              onChange={(e) => {
+                console.log("e.value", e.value);
+                setSelectedType(e.value);
+                getMovies(selectedType);
+              }}
+            />
+          </div>
         </div>
       </header>
       <ul>{displayMovies}</ul>
