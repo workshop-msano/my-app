@@ -18,9 +18,7 @@ function App() {
 
   async function getMovies(stype) {
     let res = "";
-    if (stype === "") {
-      console.log("type?");
-    } else {
+    if (stype !== "") {
       res = await helper[stype]();
       setMovies(res);
     }
