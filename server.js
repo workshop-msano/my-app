@@ -12,6 +12,9 @@ https://qiita.com/00000000/items/237ee0fba66ca5a3f12e
 - package.jsonのスクリプト startが使われてサーバーが起動する
 - fly.ioに環境変数を追加することを忘れずに
 - サーバーからビルドファイルを取得するパスが間違っていた
+
+- ブラウザが古い htmlページをcashしていたので、ビルドした新しいファイルが読み込まれなかった。
+ビルドファイルを破棄して再作成、ブラウザをハードリフレッシュ（Shift + Ctrl + R）で解決
 */
 
 const express = require("express");
@@ -85,7 +88,7 @@ app.use(
   })
 );
 
-app.use(express.static(path.resolve(__dirname, "./build")));
+app.use(express.static(path.resolve(__dirname, "build")));
 
 //https://nodejs.dev/en/learn/the-nodejs-path-module/#pathresolve
 
