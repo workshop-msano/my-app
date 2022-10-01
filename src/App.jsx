@@ -96,12 +96,12 @@ function App() {
       {showModal && (
         <Modal switchModal={switchModal} selectedMovie={selectedMovie} />
       )}
-      <button onClick={async()=>{
+      {/* <button onClick={async()=>{
         let test = await helper.popular()
         console.log("helper", helper)
 
         console.log("test data", test)
-      }}>btn</button>
+      }}>btn</button> */}
     </div>
   );
 }

@@ -2,7 +2,6 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   if (process.env.PORT !== "8080") {
-    console.log("process.env.PORT is: ", process.env.PORT);
     app.use(
       "/graphql",
       createProxyMiddleware({
@@ -11,7 +10,6 @@ module.exports = function (app) {
       })
     );
   } else {
-    console.log("process.env.PORT is '8080', right?: ", process.env.PORT);
     app.use(
       "/graphql",
       createProxyMiddleware({

@@ -5,9 +5,14 @@ https://bel-itigo.com/migrate-from-heroku-to-flyio/
 
 https://qiita.com/00000000/items/237ee0fba66ca5a3f12e
 
+注意ポイント
+- 小規模なリアクトアプリをデプロイするには無料枠(256MB)は無理かも。512MBでとんとん位。
+- flyctl logでシャットダウンしているようにみえるが古いマシンがシャットダウンする分には問題ない
+  https://community.fly.io/t/runner-is-shutting-down-vm-and-causing-redis-to-disconnect/4656/2
+- package.jsonのスクリプト startが使われてサーバーが起動する
+- fly.ioに環境変数を追加することを忘れずに
+- サーバーからビルドファイルを取得するパスが間違っていた
 */
-
-console.log("foo");
 
 const express = require("express");
 const { buildSchema } = require("graphql");
@@ -17,10 +22,7 @@ require("dotenv").config();
 const cors = require("cors");
 const path = require("path");
 
-// let isProduction = false; 
-
 const schema = buildSchema(`
-
   type Movie{
     id: Int
     title: String
@@ -72,7 +74,6 @@ const root = {
   },
 };
 
-console.log("bar");
 const app = express();
 app.use(cors());
 app.use(
@@ -84,11 +85,11 @@ app.use(
   })
 );
 
-app.use(express.static(path.resolve(__dirname, "/build")));
+app.use(express.static(path.resolve(__dirname, "./build")));
 
 //https://nodejs.dev/en/learn/the-nodejs-path-module/#pathresolve
 
 const PORT = process.env.PORT || 4000;
-console.log("process.env.PORT: ", process.env.PORT)
+
 app.listen(PORT, () => console.log(`Server on port ${PORT}`));
 
