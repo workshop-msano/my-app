@@ -2,11 +2,24 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Preparation
+
+##### `npm install` 
+
+Get packages to start development. 
+
+##### `.env` - Environment variable
+
+add `.env` to the root directory, write API key in the file. 
+
 ## Available Scripts
 
-In the project directory, you can run:
+【development mode】
+In the project directory, you need to run server then cliant:
 
-### `npm start`
+### 1. `npm run dev`
+
+### 2. `npm run cliant-start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
