@@ -5,7 +5,7 @@ https://bel-itigo.com/migrate-from-heroku-to-flyio/
 
 https://qiita.com/00000000/items/237ee0fba66ca5a3f12e
 
-注意ポイント
+Fly.io deploy struggled : 注意ポイント
 - 小規模なリアクトアプリをデプロイするには無料枠(256MB)は無理かも。512MBでとんとん位。
 - flyctl logでシャットダウンしているようにみえるが古いマシンがシャットダウンする分には問題ない
   https://community.fly.io/t/runner-is-shutting-down-vm-and-causing-redis-to-disconnect/4656/2
